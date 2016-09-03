@@ -6,7 +6,7 @@ MAINTAINER Patrick Double <pat@patdouble.com>
 #########################################
 
 # Set correct environment variables
-ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8" TERM=dumb GLIBC_VERSION=2.23-r3 VERSION=8.4.21
+ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8" TERM=dumb GLIBC_VERSION=2.23-r3 VERSION=9.4.49
 
 # Use baseimage-docker's init system
 # CMD ["/sbin/my_init"]
