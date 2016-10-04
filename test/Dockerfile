@@ -1,6 +1,6 @@
 FROM alpine:3.4
 MAINTAINER Patrick Double <pat@patdouble.com>
 
-COPY . .
+ADD . .
 CMD ["./test.sh"]
 
