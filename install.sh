@@ -12,7 +12,7 @@
 usermod -u 99 nobody
 usermod -g 100 nobody
 usermod -d /home nobody
-find /home -xdev -not \( -user nobody -a -group users \) -exec chown nobody:users {} +
+find /home -xdev -not \( -user nobody -a -group users \) -a -not -path /home/Dropbox -exec chown nobody:users {} +
 [ -d '/home/Dropbox' ] && chmod a+rx /home/Dropbox
 [ -d '/home/Dropbox' ] && find /home/Dropbox -xdev -not \( -user nobody -a -group users \) -exec chown nobody:users {} +
 
@@ -31,7 +31,7 @@ if [[ $(cat /etc/timezone) != $TZ ]] ; then
   echo "$TZ" > /etc/timezone
   dpkg-reconfigure -f noninteractive tzdata
 fi
-find /home -xdev -not \( -user nobody -a -group users \) -exec chown nobody:users {} +
+find /home -xdev -not \( -user nobody -a -group users \) -a -not -path /home/Dropbox -exec chown nobody:users {} +
 [ -d '/home/Dropbox' ] && chmod a+rx /home/Dropbox
 [ -d '/home/Dropbox' ] && find /home/Dropbox -xdev -not \( -user nobody -a -group users \) -exec chown nobody:users {} +
 sleep 5
@@ -114,7 +114,7 @@ chmod +x /opt/*.sh /opt/dropbox_status.py
 # Install Dropbox
 URL="https://dl.dropboxusercontent.com/u/17/dropbox-lnx.x86_64-${VERSION}.tar.gz"
 curl -L ${URL} | tar -xzf - -C /home
-find /home -xdev -not \( -user nobody -a -group users \) -exec chown nobody:users {} +
+find /home -xdev -not \( -user nobody -a -group users \) -a -not -path /home/Dropbox -exec chown nobody:users {} +
 [ -d '/home/Dropbox' ] && chmod a+rx /home/Dropbox
 [ -d '/home/Dropbox' ] && find /home/Dropbox -xdev -not \( -user nobody -a -group users \) -exec chown nobody:users {} +
 
