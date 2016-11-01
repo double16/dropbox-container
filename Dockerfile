@@ -11,7 +11,7 @@ ARG SOURCE_TYPE
 #########################################
 
 # Set correct environment variables
-ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8" TERM=dumb GLIBC_VERSION=2.23-r3 VERSION=11.4.22
+ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8" TERM=dumb GLIBC_VERSION=2.23-r3 VERSION=13.4.21
 
 LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.docker.dockerfile="$DOCKERFILE_PATH/Dockerfile" \
