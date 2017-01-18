@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:3.5
 MAINTAINER Patrick Double <pat@patdouble.com>
 
 ARG BUILD_DATE
