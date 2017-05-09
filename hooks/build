@@ -6,7 +6,7 @@
 [ -n "$SOURCE_TYPE" ]     || SOURCE_TYPE=git
 [ -n "$DOCKERFILE_PATH" ] || DOCKERFILE_PATH=.
 
-VERSION=$SOURCE_BRANCH
+VERSION=${SOURCE_BRANCH/-*/}
 if [ "$VERSION" = "master" ]; then
 	VERSION=""
 fi
