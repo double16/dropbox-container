@@ -14,7 +14,7 @@ usermod -g 100 nobody
 usermod -d /home nobody
 find /home -xdev -not \( -user nobody -a -group users \) -a -not -path /home/Dropbox -exec chown nobody:users {} +
 [ -d '/home/Dropbox' ] && chmod a+rx /home/Dropbox
-[ -d '/home/Dropbox' ] && find /home/Dropbox -xdev -not \( -user nobody -a -group users \) -exec chown nobody:users {} +
+[ -d '/home/Dropbox' ] && find /home/Dropbox -xdev -not -readable -exec chgrp users {} +
 
 # Disable SSH
 rm -rf /etc/service/sshd /etc/service/cron /etc/service/syslog-ng /etc/my_init.d/00_regen_ssh_host_keys.sh
@@ -33,7 +33,7 @@ if [[ $(cat /etc/timezone) != $TZ ]] ; then
 fi
 find /home -xdev -not \( -user nobody -a -group users \) -a -not -path /home/Dropbox -exec chown nobody:users {} +
 [ -d '/home/Dropbox' ] && chmod a+rx /home/Dropbox
-[ -d '/home/Dropbox' ] && find /home/Dropbox -xdev -not \( -user nobody -a -group users \) -exec chown nobody:users {} +
+[ -d '/home/Dropbox' ] && find /home/Dropbox -xdev -not -readable -exec chgrp users {} +
 sleep 5
 exit 0
 EOT
@@ -116,7 +116,7 @@ URL="https://dl.dropboxusercontent.com/u/17/dropbox-lnx.x86_64-${VERSION}.tar.gz
 curl -L ${URL} | tar -xzf - -C /home
 find /home -xdev -not \( -user nobody -a -group users \) -a -not -path /home/Dropbox -exec chown nobody:users {} +
 [ -d '/home/Dropbox' ] && chmod a+rx /home/Dropbox
-[ -d '/home/Dropbox' ] && find /home/Dropbox -xdev -not \( -user nobody -a -group users \) -exec chown nobody:users {} +
+[ -d '/home/Dropbox' ] && find /home/Dropbox -xdev -not -readable -exec chgrp users {} +
 
 #########################################
 ##                 CLEANUP             ##
