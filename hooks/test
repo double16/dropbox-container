@@ -1,0 +1,11 @@
+#!/bin/bash -xe
+
+. ./hooks/env
+
+CID=$(docker run -d $IMAGE_NAME)
+sleep 10s
+# Message is: Please visit https://www.dropbox.com/cli_link_nonce?nonce=_____ to link this device.
+LOGS="$(docker logs $CID)"
+docker rm -f $CID
+echo $LOGS | grep -iq 'please visit.*to link'
+

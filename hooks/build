@@ -1,15 +1,6 @@
 #!/bin/bash -xe
 
-[ -n "$SOURCE_BRANCH" ]   || SOURCE_BRANCH=$(git symbolic-ref -q --short HEAD)
-[ -n "$GIT_SHA1" ]        || GIT_SHA1=$(git rev-parse -q HEAD)
-[ -n "$IMAGE_NAME" ]      || IMAGE_NAME=dropbox-container:${SOURCE_BRANCH}
-[ -n "$SOURCE_TYPE" ]     || SOURCE_TYPE=git
-[ -n "$DOCKERFILE_PATH" ] || DOCKERFILE_PATH=.
-
-VERSION=${SOURCE_BRANCH/-*/}
-if [ "$VERSION" = "master" ]; then
-	VERSION=""
-fi
+. ./hooks/env
 
 docker build \
 	--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
