@@ -5,7 +5,7 @@ ARG BUILD_DATE
 ARG SOURCE_COMMIT
 ARG DOCKERFILE_PATH
 ARG SOURCE_TYPE
-ARG VERSION
+ARG VERSION=34.4.20
 
 #########################################
 ##        ENVIRONMENTAL CONFIG         ##

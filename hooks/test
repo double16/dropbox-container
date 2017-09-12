@@ -3,7 +3,7 @@
 . ./hooks/env
 
 CID=$(docker run -d $IMAGE_NAME)
-sleep 10s
+sleep 15s
 # Message is: Please visit https://www.dropbox.com/cli_link_nonce?nonce=_____ to link this device.
 LOGS="$(docker logs $CID)"
 docker rm -f $CID
