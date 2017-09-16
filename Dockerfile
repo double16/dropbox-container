@@ -34,6 +34,7 @@ RUN apk add --no-cache libstdc++ curl ca-certificates bash supervisor shadow pyt
     echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf && \
     chmod +x /tmp/install.sh && /tmp/install.sh && \
     apk del curl glibc-i18n && \
+    sleep 3s && \
     rm -rf /tmp/* /var/cache/apk/*
 
 
