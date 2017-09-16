@@ -32,6 +32,7 @@ RUN apk add --no-cache libstdc++ curl ca-certificates bash supervisor shadow pyt
     echo "export LANG=C.UTF-8" > /etc/profile.d/locale.sh && \
     /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib && \
     echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf && \
+    # https://github.com/moby/moby/issues/9547
     chmod +x /tmp/install.sh && sleep 3s && /tmp/install.sh && \
     apk del curl glibc-i18n && \
     rm -rf /tmp/* /var/cache/apk/*
