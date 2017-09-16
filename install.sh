@@ -23,7 +23,7 @@ rm -rf /etc/service/sshd /etc/service/cron /etc/service/syslog-ng /etc/my_init.d
 ##  FILES, SERVICES AND CONFIGURATION  ##
 #########################################
 # CONFIG
-mkdir -p /opt
+mkdir /opt
 cat <<'EOT' > /opt/config.sh
 #!/bin/sh
 # Fix the timezone
@@ -104,7 +104,7 @@ stderr_logfile=/dev/stderr
 stderr_logfile_maxbytes=0
 EOT
 
-mv /opt/install/dropbox_status.py /opt/dropbox_status.py
+mv /tmp/dropbox_status.py /opt/dropbox_status.py
 chmod +x /opt/*.sh /opt/dropbox_status.py
 
 #########################################

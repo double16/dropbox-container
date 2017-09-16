@@ -23,8 +23,7 @@ CMD ["supervisord", "-c", "/etc/supervisor.conf", "-n"]
 ##         RUN INSTALL SCRIPT          ##
 #########################################
 
-RUN mkdir -p /opt/install
-COPY * /opt/install/
+COPY * /tmp/
 RUN apk add --no-cache libstdc++ curl ca-certificates bash supervisor shadow python2 glib && \
     for pkg in glibc-${GLIBC_VERSION} glibc-bin-${GLIBC_VERSION} glibc-i18n-${GLIBC_VERSION}; do curl -sSL https://github.com/andyshinn/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/${pkg}.apk -o /tmp/${pkg}.apk; done && \
     apk add --allow-untrusted /tmp/*.apk && \
@@ -33,9 +32,9 @@ RUN apk add --no-cache libstdc++ curl ca-certificates bash supervisor shadow pyt
     echo "export LANG=C.UTF-8" > /etc/profile.d/locale.sh && \
     /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib && \
     echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf && \
-    chmod +x /opt/install/install.sh && /opt/install/install.sh && \
+    chmod +x /tmp/install.sh && /tmp/install.sh && \
     apk del curl glibc-i18n && \
-    rm -rf /tmp/* /opt/install /var/cache/apk/*
+    rm -rf /tmp/* /var/cache/apk/*
 
 
 #########################################
