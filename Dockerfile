@@ -32,9 +32,8 @@ RUN apk add --no-cache libstdc++ curl ca-certificates bash supervisor shadow pyt
     echo "export LANG=C.UTF-8" > /etc/profile.d/locale.sh && \
     /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib && \
     echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf && \
-    chmod +x /tmp/install.sh && /tmp/install.sh && \
+    chmod +x /tmp/install.sh && sleep 3s && /tmp/install.sh && \
     apk del curl glibc-i18n && \
-    sleep 3s && \
     rm -rf /tmp/* /var/cache/apk/*
 
 
