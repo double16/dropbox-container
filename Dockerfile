@@ -1,18 +1,18 @@
-FROM alpine:3.5
+FROM alpine:3.7
 MAINTAINER Patrick Double <pat@patdouble.com>
 
 ARG BUILD_DATE
 ARG SOURCE_COMMIT
 ARG DOCKERFILE_PATH
 ARG SOURCE_TYPE
-ARG VERSION=34.4.20
+ARG VERSION=41.4.80
 
 #########################################
 ##        ENVIRONMENTAL CONFIG         ##
 #########################################
 
 # Set correct environment variables
-ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8" TERM=dumb GLIBC_VERSION=2.23-r3
+ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8" TERM=dumb GLIBC_VERSION=2.23-r4
 
 # Use baseimage-docker's init system
 # CMD ["/sbin/my_init"]
