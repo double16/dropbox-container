@@ -112,7 +112,8 @@ chmod +x /opt/*.sh /opt/dropbox_status.py
 #########################################
 
 # Install Dropbox
-URL="https://dl.dropboxusercontent.com/u/17/dropbox-lnx.x86_64-${VERSION}.tar.gz"
+#URL="https://dl.dropboxusercontent.com/u/17/dropbox-lnx.x86_64-${VERSION}.tar.gz"
+URL="https://www.dropbox.com/download?plat=lnx.x86_64"
 curl -L ${URL} | tar -xzf - -C /home
 find /home -xdev -not \( -user nobody -a -group users \) -a -not -path /home/Dropbox -exec chown nobody:users {} +
 [ -d '/home/Dropbox' ] && chmod a+rx /home/Dropbox
