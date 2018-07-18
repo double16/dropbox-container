@@ -31,7 +31,7 @@ class DB():
     self.connected=True
     self.tmp=""
     return True
-  
+
   def get_state(self):
     "Waits for a state change, and then returns it."
     if not self.connected:
@@ -73,5 +73,8 @@ if __name__=="__main__":
     while db.connected:
       current = db.get_state()
       if current != last:
-        print state[current]
+        try:
+          print state[current]
+        except KeyError:
+          print current
         last = current

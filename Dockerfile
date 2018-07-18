@@ -1,11 +1,9 @@
 FROM alpine:3.7
-MAINTAINER Patrick Double <pat@patdouble.com>
 
-ARG BUILD_DATE
 ARG SOURCE_COMMIT
 ARG DOCKERFILE_PATH
 ARG SOURCE_TYPE
-ARG VERSION=45.4.92
+ARG VERSION=53.4.67
 
 #########################################
 ##        ENVIRONMENTAL CONFIG         ##
@@ -46,7 +44,7 @@ VOLUME /home/.dropbox /home/Dropbox
 
 HEALTHCHECK CMD test -e /proc/$(</home/.dropbox/dropbox.pid) || exit 1
 
-LABEL org.label-schema.build-date=$BUILD_DATE \
+LABEL maintainer="Patrick Double <pat@patdouble.com>" \
       org.label-schema.docker.dockerfile="$DOCKERFILE_PATH/Dockerfile" \
       org.label-schema.license="GPLv2" \
       org.label-schema.name="Dropbox ${VERSION}" \
