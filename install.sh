@@ -83,7 +83,7 @@ group = users
 directory= /home
 environment = HOME="/home"
 startsecs = 1
-autorestart = False
+autorestart = True
 command = /opt/dropbox.sh
 stdout_logfile=/dev/stdout
 stdout_logfile_maxbytes=0
@@ -96,7 +96,7 @@ user = nobody
 directory=/home
 environment = HOME="/home"
 startsecs = 1
-autorestart = False
+autorestart = True
 command = /opt/dropbox_status.sh
 stdout_logfile=/dev/stdout
 stdout_logfile_maxbytes=0
