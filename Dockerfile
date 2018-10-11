@@ -3,7 +3,7 @@ FROM alpine:3.8
 ARG SOURCE_COMMIT
 ARG DOCKERFILE_PATH
 ARG SOURCE_TYPE
-ARG VERSION=54.4.90
+ARG VERSION=59.4.93
 
 #########################################
 ##        ENVIRONMENTAL CONFIG         ##

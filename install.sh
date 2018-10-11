@@ -48,7 +48,7 @@ cat <<'EOT' > /opt/dropbox.sh
 [ ! -e "/home/.dropbox/unlink.db" ]      || rm /home/.dropbox/unlink.db
 [ ! -e "/home/.dropbox/dropbox.pid" ]    || rm /home/.dropbox/dropbox.pid
 
-/home/.dropbox-dist/dropboxd
+exec ionice -c 3 nice /home/.dropbox-dist/dropboxd
 EOT
 
 # DropboxStatus
@@ -61,7 +61,7 @@ if [ "$STATUS" != "Yes" ]; then
   exit 0
 else
   while [ ! -e "/home/.dropbox/iface_socket" ]; do sleep 1; done
-  /opt/dropbox_status.py
+  exec /opt/dropbox_status.py
 fi
 EOT
 
