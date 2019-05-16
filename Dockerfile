@@ -1,16 +1,16 @@
-FROM alpine:3.8
+FROM alpine:3.9
 
 ARG SOURCE_COMMIT
 ARG DOCKERFILE_PATH
 ARG SOURCE_TYPE
-ARG VERSION=59.4.93
+ARG VERSION=72.4.136
 
 #########################################
 ##        ENVIRONMENTAL CONFIG         ##
 #########################################
 
 # Set correct environment variables
-ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8" TERM=dumb GLIBC_VERSION=2.27-r0
+ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8" TERM=dumb GLIBC_VERSION=2.29-r0
 
 # Use baseimage-docker's init system
 # CMD ["/sbin/my_init"]

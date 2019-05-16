@@ -23,7 +23,7 @@ rm -rf /etc/service/sshd /etc/service/cron /etc/service/syslog-ng /etc/my_init.d
 ##  FILES, SERVICES AND CONFIGURATION  ##
 #########################################
 # CONFIG
-mkdir /opt
+mkdir -p /opt
 cat <<'EOT' > /opt/config.sh
 #!/bin/sh
 # Fix the timezone
