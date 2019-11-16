@@ -1,16 +1,16 @@
-FROM alpine:3.9
+FROM alpine:3.10
 
 ARG SOURCE_COMMIT
 ARG DOCKERFILE_PATH
 ARG SOURCE_TYPE
-ARG VERSION=72.4.136
+ARG VERSION=85.4.155
 
 #########################################
 ##        ENVIRONMENTAL CONFIG         ##
 #########################################
 
 # Set correct environment variables
-ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8" TERM=dumb GLIBC_VERSION=2.29-r0
+ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8" TERM=dumb GLIBC_VERSION=2.30-r0
 
 # Use baseimage-docker's init system
 # CMD ["/sbin/my_init"]
@@ -22,7 +22,7 @@ CMD ["supervisord", "-c", "/etc/supervisor.conf", "-n"]
 #########################################
 
 COPY * /tmp/
-RUN apk add --no-cache libstdc++ curl ca-certificates bash supervisor shadow python2 glib && \
+RUN apk add --no-cache libstdc++ curl ca-certificates bash supervisor shadow python2 glib libatomic && \
     for pkg in glibc-${GLIBC_VERSION} glibc-bin-${GLIBC_VERSION} glibc-i18n-${GLIBC_VERSION}; do curl -sSL https://github.com/andyshinn/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/${pkg}.apk -o /tmp/${pkg}.apk; done && \
     apk add --allow-untrusted /tmp/*.apk && \
     rm -v /tmp/*.apk && \
