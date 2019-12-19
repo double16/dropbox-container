@@ -1,19 +1,17 @@
-FROM alpine:3.10
+FROM ubuntu:18.04
 
 ARG SOURCE_COMMIT
 ARG DOCKERFILE_PATH
 ARG SOURCE_TYPE
-ARG VERSION=85.4.155
+ARG VERSION=87.4.138
 
 #########################################
 ##        ENVIRONMENTAL CONFIG         ##
 #########################################
 
 # Set correct environment variables
-ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8" TERM=dumb GLIBC_VERSION=2.30-r0
+ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8" TERM=dumb DEBIAN_FRONTEND=noninteractive
 
-# Use baseimage-docker's init system
-# CMD ["/sbin/my_init"]
 # Use Supervisor
 CMD ["supervisord", "-c", "/etc/supervisor.conf", "-n"]
 
@@ -22,19 +20,11 @@ CMD ["supervisord", "-c", "/etc/supervisor.conf", "-n"]
 #########################################
 
 COPY * /tmp/
-RUN apk add --no-cache libstdc++ curl ca-certificates bash supervisor shadow python2 glib libatomic && \
-    for pkg in glibc-${GLIBC_VERSION} glibc-bin-${GLIBC_VERSION} glibc-i18n-${GLIBC_VERSION}; do curl -sSL https://github.com/andyshinn/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/${pkg}.apk -o /tmp/${pkg}.apk; done && \
-    apk add --allow-untrusted /tmp/*.apk && \
-    rm -v /tmp/*.apk && \
-    ( /usr/glibc-compat/bin/localedef --force --inputfile POSIX --charmap UTF-8 C.UTF-8 || true ) && \
-    echo "export LANG=C.UTF-8" > /etc/profile.d/locale.sh && \
-    /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib && \
-    echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf && \
+RUN apt-get update &&\
+    apt-get install -y curl ca-certificates supervisor libatomic1 && \
     # https://github.com/moby/moby/issues/9547
     chmod +x /tmp/install.sh && sleep 3s && /tmp/install.sh && \
-    apk del curl glibc-i18n && \
-    rm -rf /tmp/* /var/cache/apk/*
-
+    apt-get clean
 
 #########################################
 ##         EXPORTS AND VOLUMES         ##
