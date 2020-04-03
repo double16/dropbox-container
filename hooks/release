@@ -8,6 +8,12 @@ fi
 export VERSION="$1"
 ./hooks/build
 ./hooks/test
+
+if [ -n "$(git status --porcelain=v1)" ]; then
+  git status
+  exit 1
+fi
+
 git tag "${VERSION}"
 git push --tags
 

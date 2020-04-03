@@ -3,7 +3,8 @@ FROM ubuntu:18.04
 ARG SOURCE_COMMIT
 ARG DOCKERFILE_PATH
 ARG SOURCE_TYPE
-ARG VERSION=87.4.138
+ARG VERSION=94.4.384
+ARG APT_PROXY
 
 #########################################
 ##        ENVIRONMENTAL CONFIG         ##
@@ -20,11 +21,13 @@ CMD ["supervisord", "-c", "/etc/supervisor.conf", "-n"]
 #########################################
 
 COPY * /tmp/
-RUN apt-get update &&\
-    apt-get install -y curl ca-certificates supervisor libatomic1 && \
+RUN if [ -n "${APT_PROXY}" ]; then echo "Acquire::HTTP::Proxy \"${APT_PROXY}\";\nAcquire::HTTPS::Proxy false;\n" >> /etc/apt/apt.conf.d/01proxy; cat /etc/apt/apt.conf.d/01proxy; fi &&\
+    apt-get update &&\
+    apt-get install -y curl ca-certificates supervisor libatomic1 xserver-xorg-core librsync1 && \
     # https://github.com/moby/moby/issues/9547
     chmod +x /tmp/install.sh && sleep 3s && /tmp/install.sh && \
-    apt-get clean
+    apt-get clean && \
+    rm -f /etc/apt/apt.conf.d/01proxy
 
 #########################################
 ##         EXPORTS AND VOLUMES         ##
