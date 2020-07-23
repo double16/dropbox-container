@@ -16,4 +16,6 @@ fi
 
 git tag "${VERSION}"
 git push --tags
+# update master
+git push
 
