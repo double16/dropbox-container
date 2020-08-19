@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # Filip Lundborg (filip@mkeyd.net)
 import socket,os
 
@@ -24,7 +24,7 @@ class DB():
 
       self.cmd.connect(os.path.expanduser("~/.dropbox/command_socket"))
       self.iface.connect(os.path.expanduser("~/.dropbox/iface_socket"))
-    except Exception,e:
+    except Exception:
       return False
 
     # alright, so we're connected to both sockets
@@ -53,10 +53,10 @@ class DB():
 
       for s in res:
         if s.startswith("shell_touch") and os.path.isfile(s[17:-1]):
-          print "File: "+ s[17:-1]
+          print("File: "+ s[17:-1])
         if s.startswith("change_state"):
           flg=True
-          self.state=s[23] 
+          self.state=s[23]
 
       if flg:
         return self.state
@@ -74,7 +74,7 @@ if __name__=="__main__":
       current = db.get_state()
       if current != last:
         try:
-          print state[current]
+          print(state[current])
         except KeyError:
-          print current
+          print(current)
         last = current
