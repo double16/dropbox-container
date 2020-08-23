@@ -33,7 +33,7 @@ if [[ $(cat /etc/timezone) != $TZ ]] ; then
 fi
 find /home -xdev -not \( -user nobody -a -group users \) -a -not -path /home/Dropbox -exec chown nobody:users {} +
 [ -d '/home/Dropbox' ] && chmod a+rx /home/Dropbox
-[ -d '/home/Dropbox' ] && find /home/Dropbox -xdev -not -readable -exec chgrp users {} +
+[ -d '/home/Dropbox' ] && ionice -c 3 nice -n 19 find /home/Dropbox -xdev -not -readable -exec chgrp users {} +
 sleep 5
 exit 0
 EOT
@@ -48,7 +48,7 @@ cat <<'EOT' > /opt/dropbox.sh
 [ ! -e "/home/.dropbox/unlink.db" ]      || rm /home/.dropbox/unlink.db
 [ ! -e "/home/.dropbox/dropbox.pid" ]    || rm /home/.dropbox/dropbox.pid
 
-exec ionice -c 3 nice /home/.dropbox-dist/dropboxd
+exec ionice -c 3 nice -n 19 /home/.dropbox-dist/dropboxd
 EOT
 
 # DropboxStatus
@@ -117,7 +117,7 @@ URL="https://www.dropbox.com/download?plat=lnx.x86_64"
 curl -L ${URL} | tar -xzf - -C /home
 find /home -xdev -not \( -user nobody -a -group users \) -a -not -path /home/Dropbox -exec chown nobody:users {} +
 [ -d '/home/Dropbox' ] && chmod a+rx /home/Dropbox
-[ -d '/home/Dropbox' ] && find /home/Dropbox -xdev -not -readable -exec chgrp users {} +
+[ -d '/home/Dropbox' ] && ionice -c 3 nice -n 19 find /home/Dropbox -xdev -not -readable -exec chgrp users {} +
 
 #########################################
 ##                 CLEANUP             ##
