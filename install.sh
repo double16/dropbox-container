@@ -56,7 +56,7 @@ cat <<'EOT' > /opt/dropbox_status.sh
 #!/bin/sh
 
 if [ "$STATUS" != "Yes" ]; then
-  echo "Continous console status not requested"
+  echo "Continuous console status not requested"
   sleep 5;
   exit 0
 else
