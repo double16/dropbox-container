@@ -23,7 +23,7 @@ CMD ["supervisord", "-c", "/etc/supervisor.conf", "-n"]
 COPY * /tmp/
 RUN if [ -n "${APT_PROXY}" ]; then echo "Acquire::HTTP::Proxy \"${APT_PROXY}\";\nAcquire::HTTPS::Proxy false;\n" >> /etc/apt/apt.conf.d/01proxy; cat /etc/apt/apt.conf.d/01proxy; fi &&\
     apt-get update &&\
-    apt-get install -y curl ca-certificates supervisor libatomic1 xserver-xorg-core librsync2 strace && \
+    apt-get install -y curl ca-certificates supervisor libatomic1 xserver-xorg-core librsync2 && \
     # https://github.com/moby/moby/issues/9547
     chmod +x /tmp/install.sh && sleep 3s && /tmp/install.sh && \
     curl -L -o /home/dropbox.py 'https://www.dropbox.com/download?dl=packages/dropbox.py' && \
