@@ -48,7 +48,7 @@ cat <<'EOT' > /opt/dropbox.sh
 [ ! -e "/home/.dropbox/unlink.db" ]      || rm /home/.dropbox/unlink.db
 [ ! -e "/home/.dropbox/dropbox.pid" ]    || rm /home/.dropbox/dropbox.pid
 
-exec ionice -c 3 nice -n 19 /home/.dropbox-dist/dropboxd
+exec ionice -c 3 nice -n 19 ${STRACE} /home/.dropbox-dist/dropboxd
 EOT
 
 # DropboxStatus
