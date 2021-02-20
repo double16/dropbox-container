@@ -104,8 +104,7 @@ stderr_logfile=/dev/stderr
 stderr_logfile_maxbytes=0
 EOT
 
-mv /tmp/dropbox_status.py /opt/dropbox_status.py
-chmod +x /opt/*.sh /opt/dropbox_status.py
+chmod +x /opt/*.sh
 
 #########################################
 ##             INSTALLATION            ##
