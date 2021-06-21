@@ -1,0 +1,55 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: cimg/base:2021.04
+        user: root
+
+    steps:
+      - checkout
+
+      - setup_remote_docker:
+          version: 19.03.13
+
+      - run:
+          name: docker.io login
+          command: |
+            if [[ -n "${DOCKER_USERNAME}" ]]; then
+              echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
+            fi
+
+      - run:
+          name: Docker Build
+          no_output_timeout: 15m
+          command: |
+            ./hooks/build
+            ./hooks/test
+
+      - run:
+          name: Docker Push
+          no_output_timeout: 15m
+          command: |
+            set -e
+            if [[ -n "${DOCKER_USERNAME}" ]]; then
+              source ./hooks/env
+              docker push $IMAGE_NAME
+            fi
+
+workflows:
+  version: 2
+  untagged-build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: /^master/
+            tags:
+              ignore: /.*/
+  tagged-build:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /^[0-9][0-9][0-9]+[.].*/
+            branches:
+              ignore: /.*/
