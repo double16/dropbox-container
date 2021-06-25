@@ -1,4 +1,5 @@
 # These values are passed by the Hub, but if we are running locally we can get them from git.
+[ -n "$SOURCE_BRANCH" ]  || SOURCE_BRANCH="${CIRCLE_TAG}"
 [ -n "$SOURCE_BRANCH" ]  || SOURCE_BRANCH=$(git symbolic-ref -q --short HEAD | tr '/' '-')
 [ -n "$SOURCE_BRANCH" ]  || SOURCE_BRANCH=latest
 [ -n "$GIT_SHA1" ]       || GIT_SHA1=$(git rev-parse -q HEAD)
