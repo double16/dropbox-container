@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 ARG SOURCE_COMMIT
 ARG DOCKERFILE_PATH
 ARG SOURCE_TYPE
-ARG VERSION=125.4.3474
+ARG VERSION=129.4.3571
 ARG APT_PROXY
 
 #########################################
@@ -23,7 +23,8 @@ CMD ["supervisord", "-c", "/etc/supervisor.conf", "-n"]
 COPY install.sh /tmp/
 RUN if [ -n "${APT_PROXY}" ]; then echo "Acquire::HTTP::Proxy \"${APT_PROXY}\";\nAcquire::HTTPS::Proxy false;\n" >> /etc/apt/apt.conf.d/01proxy; cat /etc/apt/apt.conf.d/01proxy; fi &&\
     apt-get update &&\
-    apt-get install -y curl ca-certificates supervisor libatomic1 xserver-xorg-core librsync2 && \
+    # to find dependencies, download Ubuntu .deb from https://www.dropbox.com/install-linux, `deb -I dropbox.deb`
+    apt-get install -y curl ca-certificates supervisor libatomic1 xserver-xorg-core librsync2 python3-gi libatk1.0-0 libcairo2 libglib2.0-0 libgtk-3-0 libpango1.0-0 gir1.2-gdkpixbuf-2.0 gir1.2-glib-2.0 gir1.2-gtk-3.0 gir1.2-pango-1.0 && \
     # https://github.com/moby/moby/issues/9547
     chmod +x /tmp/install.sh && sleep 3s && /tmp/install.sh && rm /tmp/install.sh && \
     apt-get clean && \
