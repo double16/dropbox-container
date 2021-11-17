@@ -42,6 +42,15 @@ EOT
 cat <<'EOT' > /opt/dropbox.sh
 #!/bin/sh
 
+#########################################
+##             INSTALLATION            ##
+#########################################
+if [ ! -e "/home/.dropbox-dist/dropboxd" ]; then
+  URL="https://www.dropbox.com/download?plat=lnx.x86_64"
+  curl -L "${URL}" | tar -xzf - -C /home
+  find /home -xdev -not \( -user nobody -a -group users \) -a -not -path /home/Dropbox -exec chown nobody:users {} +
+fi
+
 #  Dropbox did not shutdown properly? Remove files.
 [ ! -e "/home/.dropbox/command_socket" ] || rm /home/.dropbox/command_socket
 [ ! -e "/home/.dropbox/iface_socket" ]   || rm /home/.dropbox/iface_socket
@@ -105,18 +114,6 @@ stderr_logfile_maxbytes=0
 EOT
 
 chmod +x /opt/*.sh
-
-#########################################
-##             INSTALLATION            ##
-#########################################
-
-# Install Dropbox
-#URL="https://dl.dropboxusercontent.com/u/17/dropbox-lnx.x86_64-${VERSION}.tar.gz"
-URL="https://www.dropbox.com/download?plat=lnx.x86_64"
-curl -L ${URL} | tar -xzf - -C /home
-find /home -xdev -not \( -user nobody -a -group users \) -a -not -path /home/Dropbox -exec chown nobody:users {} +
-[ -d '/home/Dropbox' ] && chmod a+rx /home/Dropbox
-[ -d '/home/Dropbox' ] && ionice -c 3 nice -n 19 find /home/Dropbox -xdev -not -readable -exec chgrp users {} +
 
 #########################################
 ##                 CLEANUP             ##
