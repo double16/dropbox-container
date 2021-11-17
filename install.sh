@@ -66,7 +66,7 @@ cat <<'EOT' > /opt/dropbox_status.sh
 
 if [ "$STATUS" != "Yes" ]; then
   echo "Continuous console status not requested"
-  sleep 5;
+  sleep 1d
   exit 0
 else
   while [ ! -e "/home/.dropbox/iface_socket" ]; do sleep 1; done
